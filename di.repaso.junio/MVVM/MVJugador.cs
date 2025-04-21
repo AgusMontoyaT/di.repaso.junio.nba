@@ -54,10 +54,10 @@ namespace di.repaso.junio.MVVM
         }
 
 
-        public async Task<bool> Guarda()
-        {
-            return await Add(Jugador);
-        }
+       // public async Task<bool> Guarda()
+      //  {
+      //      return await Add(Jugador);
+     //   }
         #endregion
     }
 }

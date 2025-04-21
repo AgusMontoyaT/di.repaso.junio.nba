@@ -19,10 +19,10 @@
     <Grid Background="#476db6">
         <Ellipse Width="900"
                  Height="900"
-                 Margin='600,0,0,0'
+                 Margin="600 0 0 0"
                  HorizontalAlignment="Left"
                  VerticalAlignment="Center"
-                 Grid.ColumnSpan='2'
+                 Grid.ColumnSpan="2"
                  Fill="#302f41">
         </Ellipse>
 

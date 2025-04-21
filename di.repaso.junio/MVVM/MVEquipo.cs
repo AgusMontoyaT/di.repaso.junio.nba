@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace di.repaso.junio.MVVM
@@ -26,6 +27,13 @@ namespace di.repaso.junio.MVVM
             set { _equipo = value; OnPropertyChanged(nameof(Equipo)); }
         }
 
+        public List<string> listaConferencias => _servicioEquipo.getConferencias();
+
+        public List<string> listaDivisiones => _servicioEquipo.getDivisiones();
+
+        public bool unico => _servicioEquipo.NombreUnico(Equipo.Nombre);
+        
+        public Button btnAdd { get; set; }
         #endregion
 
         #region Constructores
