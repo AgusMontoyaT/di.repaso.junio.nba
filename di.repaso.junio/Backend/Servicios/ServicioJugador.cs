@@ -32,5 +32,13 @@ namespace di.repaso.junio.Backend.Servicios
                          select t.Key;
             return result.ToList();
         }
+
+        #region Filtrar por nombre
+        public bool NombreUnico(string nombre)
+        {
+            return contexto.Set<Equipo>().Where(e => e.Nombre == nombre).Count() == 0;
+        }
+
+        #endregion
     }
 }

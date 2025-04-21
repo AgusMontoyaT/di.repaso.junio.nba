@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace di.repaso.junio.MVVM
@@ -16,19 +17,30 @@ namespace di.repaso.junio.MVVM
         private NbaContext _context;
         private ServicioJugador _servicioJugador;
         private ServicioEquipo _servicioEquipo;
-        private Jugadore _jugadore;
+        private Jugadore _jugador;
 
         private ListCollectionView _listaJugadores;
 
+        #region Filtros
+        // SERVICIOJUGADOR EDITADO
+        public bool unico => _servicioJugador.NombreUnico(Jugador.Nombre);
 
+        public Button btnAdd { get; set; }
 
-
-
-        // FILTROS
+        #endregion
 
         #region Getters y setters
-        
+        public Jugadore Jugador
+        {
+            get => _jugador;
+            set { _jugador = value; OnPropertyChanged(nameof(Jugador)); }
+        }
 
+        public List<string> listaPosiciones => _servicioJugador.getPosiciones();
+        public IEnumerable<Equipo> listaEquipos
+        {
+            get { return Task.Run(() => _servicioEquipo.GetAllAsync()).Result; }
+        }
         #endregion
 
         #region Constructores
@@ -48,16 +60,22 @@ namespace di.repaso.junio.MVVM
         #region Métodos públicos
         public async Task Inicializa()
         {
+            _servicioEquipo = new ServicioEquipo(_context);
             _servicioJugador = new ServicioJugador(_context);
             servicio = _servicioJugador;
             List<Jugadore> lista = (await _servicioJugador.GetAllAsync()).ToList();
+            _listaJugadores = new ListCollectionView(lista);
+
+            _jugador = new Jugadore();
         }
 
+        public async Task<bool> Guarda()
+        {
+            // CODIGO NO AUTOINCREMENTAL
+            Jugador.Codigo = _servicioJugador.getLastId() + 1;
 
-       // public async Task<bool> Guarda()
-      //  {
-      //      return await Add(Jugador);
-     //   }
+            return await Add(Jugador);
+        }
         #endregion
     }
 }

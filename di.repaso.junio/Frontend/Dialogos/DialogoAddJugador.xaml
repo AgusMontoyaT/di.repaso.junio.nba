@@ -1,0 +1,225 @@
+﻿<Window x:Class="di.repaso.junio.Frontend.Dialogos.DialogoAddJugador"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:di.repaso.junio.Frontend.Dialogos"
+        mc:Ignorable="d"
+        Title="Añadir equipo"
+        Height="450"
+        Width="800"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        AllowsTransparency="False"
+        Background="Transparent"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner">
+
+    <Grid Background="#476db6">
+        <Ellipse Width="600"
+                 Height="600"
+                 Margin="600 0 0 0"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Center"
+                 Grid.ColumnSpan="2"
+                 Fill="#302f41" />
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="7*" />
+            </Grid.ColumnDefinitions>
+
+
+            <StackPanel Grid.Column="0"
+                        Width="150"
+                        Height="350"
+                        Orientation="Vertical"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Background="#302f41">
+
+                <TextBlock Text="APP"
+                           Foreground="White"
+                           HorizontalAlignment="Center"
+                           FontSize="16"
+                           Margin="15 100 20 0" />
+                <TextBlock Text="BASKET"
+                           Foreground="White"
+                           HorizontalAlignment="Center"
+                           FontSize="20"
+                           Margin="0 0 0 0" />
+                <Separator Width="80"
+                           Foreground="White"
+                           Margin="0 10 0 0" />
+            </StackPanel>
+
+
+            <Grid Grid.Column="1"
+                  Width="450"
+                  HorizontalAlignment="Left"
+                  Height="350"
+                  Background="White">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20*" />
+                    <RowDefinition Height="15*" />
+                    <RowDefinition Height="15*" />
+                    <RowDefinition Height="15*" />
+                    <RowDefinition Height="15*" />
+                    <RowDefinition Height="20*" />
+
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="AÑADIR JUGADOR"
+                           Grid.Row="0"
+                           FontSize="20"
+                           Height="25"
+                           Margin="0 10 0 0"
+                           FontWeight="DemiBold"
+                           HorizontalAlignment="Center" />
+
+                <TextBlock Text="Por favor, rellena los datos:"
+                           Height="20"
+                           Margin="0 10 0 0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Top"
+                           Grid.Row="1"
+                           FontSize="15" />
+
+                <StackPanel Grid.Row="2"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Height="40">
+
+                    <TextBox x:Name="txtNombreJugador"
+                             Text="{Binding Jugador.Nombre, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"
+                             Width="160"
+                             Height="30"
+                             Background="#f5f5f5"
+                             BorderBrush="#f5f5f5"
+                             Margin="0 0 10 0"
+                             VerticalContentAlignment="Center"
+                             Style="{StaticResource MahApps.Styles.TextBox}"
+                             mah:TextBoxHelper.ClearTextButton="True"
+                             mah:TextBoxHelper.Watermark="Nombre del jugador" />
+
+                    <TextBox x:Name="txtProcedenciaJug"
+                             Text="{Binding Jugador.Procedencia, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"
+                             HorizontalAlignment="Center"
+                             Width="160"
+                             Margin="10 0"
+                             Height="30"
+                             Background="#f5f5f5"
+                             BorderBrush="#f5f5f5"
+                             VerticalContentAlignment="Center"
+                             Style="{StaticResource MahApps.Styles.TextBox}"
+                             mah:TextBoxHelper.ClearTextButton="True"
+                             mah:TextBoxHelper.Watermark="Procedencia" />
+                </StackPanel>
+
+                <StackPanel Grid.Row="3"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Height="40">
+
+                    <TextBox x:Name="txtAlturaJug"
+                             Text="{Binding Jugador.Altura, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"
+                             Width="160"
+                             Height="30"
+                             Background="#f5f5f5"
+                             BorderBrush="#f5f5f5"
+                             Margin="0 0 10 0"
+                             VerticalContentAlignment="Center"
+                             Style="{StaticResource MahApps.Styles.TextBox}"
+                             mah:TextBoxHelper.ClearTextButton="True"
+                             mah:TextBoxHelper.Watermark="Altura del jugador" />
+
+                    <TextBox x:Name="txtPesoJug"
+                             Text="{Binding Jugador.Peso, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"
+                             HorizontalAlignment="Center"
+                             Width="160"
+                             Margin="10 0"
+                             Height="30"
+                             Background="#f5f5f5"
+                             BorderBrush="#f5f5f5"
+                             VerticalContentAlignment="Center"
+                             Style="{StaticResource MahApps.Styles.TextBox}"
+                             mah:TextBoxHelper.ClearTextButton="True"
+                             mah:TextBoxHelper.Watermark="Peso del jugador" />
+                </StackPanel>
+
+                <StackPanel Grid.Row="4"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Height="40">
+                    <ComboBox x:Name="cbPosicion"
+                              ItemsSource="{Binding listaPosiciones}"
+                              SelectedItem="{Binding Jugador.Posicion, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                              Width="160"
+                              Style="{StaticResource MahApps.Styles.ComboBox}"
+                              mah:ComboBoxHelper.CharacterCasing="Normal"
+                              Background="Transparent"
+                              BorderBrush="Transparent"
+                              Margin="0 0 10 0" />
+
+                    <ComboBox x:Name="cbEquipo"
+                              ItemsSource="{Binding listaEquipos}"
+                              SelectedItem="{Binding Jugador.NombreEquipoNavigation, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                              DisplayMemberPath="Nombre"
+                              Width="160"
+                              Style="{StaticResource MahApps.Styles.ComboBox}"
+                              mah:ComboBoxHelper.CharacterCasing="Normal"
+                              Background="Transparent"
+                              BorderBrush="Transparent"
+                              Margin="10 0 0 0" />
+
+
+                </StackPanel>
+
+                <Separator Width="100"
+                           Grid.Row="0"
+                           Margin="0 40 0 0"
+                           Background="#302f41"
+                           VerticalAlignment="Bottom"
+                           Height="20" />
+
+                <StackPanel Grid.Row="6"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+                    <Button x:Name="btnCancel"
+                            Content="CANCELAR"
+                            Height="30"
+                            Foreground="#476db6"
+                            Background="Transparent"
+                            BorderBrush="#476db6"
+                            Width="150"
+                            Padding="5"
+                            Click="btnCancel_Click" />
+
+                    <Button x:Name="btnAdd"
+                            Content="AÑADIR"
+                            Height="30"
+                            Background="#476db6"
+                            BorderBrush="Transparent"
+                            Width="150"
+                            Padding="5"
+                            Click="btnAdd_Click"
+                            Margin="20 0 0 0" />
+                </StackPanel>
+
+            </Grid>
+
+            <Image Source="/Recursos/Iconos/pelota.png"
+                   Width="60"
+                   Grid.Row="1"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Right"
+                   Grid.ColumnSpan="2"
+                   Grid.RowSpan="2"
+                   Margin="0,350,810,0" />
+        </Grid>
+    </Grid>
+</Window>

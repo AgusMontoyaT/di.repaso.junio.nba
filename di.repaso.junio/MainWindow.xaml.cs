@@ -25,8 +25,8 @@ namespace di.repaso.junio
         {
             _mvEquipo = new MVEquipo(_context);
             await _mvEquipo.Inicializa();
-            //_mvJugador = new MVJugador(_contexto);
-            //await _mvJugador.Inicializa();
+            _mvJugador = new MVJugador(_context);
+            await _mvJugador.Inicializa();
         }
         private void btnMinimizar_Click(object sender, RoutedEventArgs e)
         {
@@ -35,7 +35,7 @@ namespace di.repaso.junio
 
         private void btnMaximizar_Click(object sender, RoutedEventArgs e)
         {
-            this.WindowState=WindowState.Maximized;
+            this.WindowState = WindowState.Maximized;
         }
 
         private void btnCerrar_Click(object sender, RoutedEventArgs e)
@@ -61,7 +61,8 @@ namespace di.repaso.junio
 
         private void btnAgregarJugador_Click(object sender, RoutedEventArgs e)
         {
-
+            DialogoAddJugador dial = new DialogoAddJugador(_mvJugador);
+            dial.ShowDialog();
         }
 
         private void btnListaJugadores_Click(object sender, RoutedEventArgs e)
