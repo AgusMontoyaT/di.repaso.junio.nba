@@ -154,6 +154,7 @@
                             Orientation="Horizontal"
                             HorizontalAlignment="Center"
                             Height="40">
+
                     <ComboBox x:Name="cbPosicion"
                               ItemsSource="{Binding listaPosiciones}"
                               SelectedItem="{Binding Jugador.Posicion, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"

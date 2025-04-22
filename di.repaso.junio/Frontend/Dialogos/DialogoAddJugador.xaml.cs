@@ -43,7 +43,7 @@ namespace di.repaso.junio.Frontend.Dialogos
         {
             if (_mvJugador.IsValid(this))
             {
-                if (_mvJugador.unico)
+                if (_mvJugador.Unico)
                 {
                     bool guardado = await _mvJugador.Guarda();
 

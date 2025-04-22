@@ -1,7 +1,9 @@
 ﻿using System.Windows;
 using di.repaso.junio.Backend.Modelo;
+using di.repaso.junio.Frontend.ControlUsuario;
 using di.repaso.junio.Frontend.Dialogos;
 using di.repaso.junio.MVVM;
+using MaterialDesignThemes.Wpf;
 
 namespace di.repaso.junio
 {
@@ -51,7 +53,9 @@ namespace di.repaso.junio
 
         private void btnListarEquipo_Click(object sender, RoutedEventArgs e)
         {
-
+            UC_Equipo ucEquipo = new UC_Equipo(_mvEquipo);
+            gridPrincipal.Children.Clear();
+            gridPrincipal.Children.Add(ucEquipo);
         }
 
         private void btnArbolEquipo_Click(object sender, RoutedEventArgs e)
@@ -67,7 +71,9 @@ namespace di.repaso.junio
 
         private void btnListaJugadores_Click(object sender, RoutedEventArgs e)
         {
-
+            UC_Jugador ucJug = new UC_Jugador(_mvJugador);
+            gridPrincipal.Children.Clear();
+            gridPrincipal.Children.Add(ucJug);
         }
 
         private void btnArbolJugadores_Click(object sender, RoutedEventArgs e)

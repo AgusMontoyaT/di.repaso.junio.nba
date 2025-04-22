@@ -23,9 +23,23 @@ namespace di.repaso.junio.MVVM
 
         #region Filtros
         // SERVICIOJUGADOR EDITADO
-        public bool unico => _servicioJugador.NombreUnico(Jugador.Nombre);
+        public bool Unico => _servicioJugador.NombreUnico(Jugador.Nombre);
 
-        public Button btnAdd { get; set; }
+        private Predicate<Jugadore> _criterioEquipo;
+        private Predicate<Jugadore> _criterioPosicion;
+        private Predicate<Jugadore> _criterioNombre;
+        private List<Predicate<Jugadore>> _criterios;
+        private Predicate<object> _predicadoJugadores;
+
+        private string _nombre;
+        private string _posicion;
+        private string _equipoDelJugador;
+
+        public string Nombre { get => _nombre; set { _nombre = value; OnPropertyChanged(nameof(Nombre)); } }
+
+        public string Posicion { get => _posicion; set { _posicion = value; OnPropertyChanged(nameof(Posicion)); } }
+
+        public string EquipoDelJugador { get => _equipoDelJugador; set { _equipoDelJugador = value; OnPropertyChanged(nameof(EquipoDelJugador)); } }
 
         #endregion
 
@@ -36,7 +50,10 @@ namespace di.repaso.junio.MVVM
             set { _jugador = value; OnPropertyChanged(nameof(Jugador)); }
         }
 
+        public ListCollectionView listaJugadores => _listaJugadores;
+
         public List<string> listaPosiciones => _servicioJugador.getPosiciones();
+
         public IEnumerable<Equipo> listaEquipos
         {
             get { return Task.Run(() => _servicioEquipo.GetAllAsync()).Result; }
@@ -55,6 +72,41 @@ namespace di.repaso.junio.MVVM
 
         #region Métodos privados
 
+        private void InicializaCriterios()
+        {
+            _criterioPosicion = new Predicate<Jugadore>(e => !string.IsNullOrEmpty(e.Posicion) && e.Posicion.Equals(Posicion));
+
+            _criterioEquipo = new Predicate<Jugadore>(e => !string.IsNullOrEmpty(e.NombreEquipoNavigation.Nombre) && e.NombreEquipoNavigation.Nombre.Equals(EquipoDelJugador));
+
+            _criterioNombre = new Predicate<Jugadore>(e => !string.IsNullOrEmpty(e.Nombre) && e.Nombre.ToLower().Contains(Nombre));
+        }
+
+        private void AddCriterios()
+        {
+            _criterios.Clear();
+
+            if (!string.IsNullOrEmpty(Posicion)) { _criterios.Add(_criterioPosicion); }
+            if (!string.IsNullOrEmpty(EquipoDelJugador)) { _criterios.Add(_criterioEquipo); }
+            if (!string.IsNullOrEmpty(Nombre)) { _criterios.Add(_criterioNombre); }
+        }
+
+
+        //SUPER IMPORTANTE
+        private bool Filtrado(object item)
+        {
+            bool correcto = true;
+            Jugadore ju;
+
+            if (item != null && _criterios.Count > 0)
+            {
+                //Casting
+                ju = (Jugadore)item;
+                //PARA QUE SOLO COJA UNA PROPIEDAD DEL OBJETO
+                correcto = _criterios.TrueForAll(x => x(ju));
+            }
+
+            return correcto;
+        }
         #endregion
 
         #region Métodos públicos
@@ -67,6 +119,30 @@ namespace di.repaso.junio.MVVM
             _listaJugadores = new ListCollectionView(lista);
 
             _jugador = new Jugadore();
+
+            // FILTROS
+            _criterios = new List<Predicate<Jugadore>>();
+            _predicadoJugadores = new Predicate<object>(Filtrado);
+            InicializaCriterios();
+        }
+
+        public void Filtrar()
+        {
+            AddCriterios();
+            listaJugadores.Filter = _predicadoJugadores;
+        }
+
+        public void Desfiltrar()
+        {
+            _criterios.Clear();
+
+            Nombre = "";
+            Posicion = "";
+            EquipoDelJugador = "";
+
+            listaJugadores.Filter = null;
+            listaJugadores.Refresh();
+
         }
 
         public async Task<bool> Guarda()
