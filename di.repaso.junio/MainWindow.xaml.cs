@@ -60,7 +60,7 @@ namespace di.repaso.junio
 
         private void btnArbolEquipo_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void btnAgregarJugador_Click(object sender, RoutedEventArgs e)
@@ -78,7 +78,9 @@ namespace di.repaso.junio
 
         private void btnArbolJugadores_Click(object sender, RoutedEventArgs e)
         {
-
+            UC_Jugadores ucArbol = new UC_Jugadores(_mvJugador);
+            gridPrincipal.Children.Clear();
+            gridPrincipal.Children.Add(ucArbol);
         }
 
 

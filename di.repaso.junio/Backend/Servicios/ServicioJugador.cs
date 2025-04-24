@@ -1,4 +1,5 @@
 ﻿using di.repaso.junio.Backend.Modelo;
+using Microsoft.EntityFrameworkCore;
 
 namespace di.repaso.junio.Backend.Servicios
 {
@@ -33,10 +34,18 @@ namespace di.repaso.junio.Backend.Servicios
             return result.ToList();
         }
 
-        #region Filtrar por nombre
+        #region AÑADIDOS
         public bool NombreUnico(string nombre)
         {
-            return contexto.Set<Equipo>().Where(e => e.Nombre == nombre).Count() == 0;
+            return contexto.Set<Jugadore>().Where(e => e.Nombre == nombre).Count() == 0;
+        }
+
+        public async Task<IEnumerable<Jugadore>> getEstadisticas()
+        {
+            return await contexto.Jugadores
+                .Include(j => j.Estadisticas)
+                .Include(j => j.NombreEquipoNavigation)
+                .ToListAsync();
         }
 
         #endregion

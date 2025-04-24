@@ -115,7 +115,7 @@ namespace di.repaso.junio.MVVM
             _servicioEquipo = new ServicioEquipo(_context);
             _servicioJugador = new ServicioJugador(_context);
             servicio = _servicioJugador;
-            List<Jugadore> lista = (await _servicioJugador.GetAllAsync()).ToList();
+            List<Jugadore> lista = (await _servicioJugador.getEstadisticas()).ToList();
             _listaJugadores = new ListCollectionView(lista);
 
             _jugador = new Jugadore();
